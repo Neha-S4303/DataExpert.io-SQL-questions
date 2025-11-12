@@ -1,0 +1,39 @@
+check test answers:
+
+SELECT id,
+  CASE
+  When given_answer IS NULL Then 'no answer'
+  WHEN given_answer = correct_answer Then 'correct'
+  ELSE 'incorrect'
+  END as checks
+  FROM playground.answers
+
+Top Reviewed Customers per Product
+ 
+
+SELECT product_id, 
+  customer_id, 
+  max(review_score) as review_score,
+  max(helpful_votes) as helpful_votes
+  FROM playground.product_reviews 
+  GROUP BY product_id, customer_id
+  ORDER BY product_id asc
+
+Find US Customers Who Rented and Streamed Videos in Early February
+
+SELECT u.user_id
+  FROM playground.rental u
+  JOIN playground.streams s 
+  ON u.user_id = s.user_id
+  WHERE u.rental_date = Cast('2023-02-01' as date)
+  AND s.stream_date between Cast('2023-02-02' as date)
+  and Cast('2023-02-08' as date)
+  AND u.country = 'US'
+
+Analyze Yearly Profit Performance
+
+SELECT year((order_date)) as order_year,
+  round(sum(profit), 2) as total_profit
+  FROM playground.superstore 
+  GROUP By year((order_date))
+  Order by order_year desc

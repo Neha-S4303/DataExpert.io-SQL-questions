@@ -1,4 +1,5 @@
-check test answers:
+Q10. check test answers: 
+Create a SQL query to evaluate test answers stored in a table named playground.answers with columns id (unique question ID), correct_answer (string), and given_answer (which can be NULL). Return a table with columns id and checks, where checks is "no answer" if given_answer is NULL, "correct" if given_answer matches correct_answer, and "incorrect" otherwise. Order the results by id.
 
 SELECT id,
   CASE
@@ -8,7 +9,7 @@ SELECT id,
   END as checks
   FROM playground.answers
 
-Top Reviewed Customers per Product
+Q12.Top Reviewed Customers per Product: Using the table playground.product_reviews, write a SQL query to identify, for each product, the customer who provided the highest review score. If there are ties in review score, the customer with the most helpful votes should be considered top. The output should include columns for product_id, customer_id, review_score, and helpful_votes, capturing the details of the top review for each product ordered in ascending order of product_id
  
 
 SELECT product_id, 
@@ -19,7 +20,8 @@ SELECT product_id,
   GROUP BY product_id, customer_id
   ORDER BY product_id asc
 
-Find US Customers Who Rented and Streamed Videos in Early February
+Q13. Find US Customers Who Rented and Streamed Videos in Early February: 
+Write a SQL query to return the US customers who rented a video on February 1st, 2023, and then streamed the same video between February 2nd and February 8th, 2023. Use the tables playground.rental for rental data and playground.streams for streaming data. The output should include unique user IDs of these customers ordered in ascending order.
 
 SELECT u.user_id
   FROM playground.rental u
@@ -30,7 +32,8 @@ SELECT u.user_id
   and Cast('2023-02-08' as date)
   AND u.country = 'US'
 
-Analyze Yearly Profit Performance
+Q14. Analyze Yearly Profit Performance:
+ Write a SQL query to analyze the profit performance of the company throughout the years using the playground.superstore table. Ensure to convert profit from varchar to a suitable numeric type for aggregation. The output should include the year extracted from the order_date (order_year), the total annual profit (total_profit) rounded to two decimal places, and should be ordered by year in descending order.
 
 SELECT year((order_date)) as order_year,
   round(sum(profit), 2) as total_profit
